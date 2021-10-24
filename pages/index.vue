@@ -1,9 +1,11 @@
 <template>
-  <h1 class="font-bold text-5xl">Hello world</h1>
+  <div class="max-w-screen-xl mx-auto">Hello World</div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@vue/composition-api";
+import { defineComponent } from "@nuxtjs/composition-api";
 
-export default defineComponent({});
+export default defineComponent({
+  layout: "default",
+});
 </script>

@@ -21,7 +21,7 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ["@/plugins/composition-api"],
+  plugins: [],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -31,7 +31,14 @@ export default {
     // https://go.nuxtjs.dev/typescript
     "@nuxt/typescript-build",
     // https://go.nuxtjs.dev/tailwindcss
-    "@nuxtjs/tailwindcss"
+    "@nuxtjs/tailwindcss",
+    // https://composition-api.nuxtjs.org
+    "@nuxtjs/composition-api/module",
+    // https://www.npmjs.com/package/@nuxtjs/google-fonts
+    [
+      "@nuxtjs/google-fonts",
+      { families: { "Zen+Kaku+Gothic+New": [400, 700] }, display: "swap" }
+    ]
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
