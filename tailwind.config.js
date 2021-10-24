@@ -11,6 +11,9 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: "'Zen Kaku Gothic New', Helvetic, Arial, sans-serif"
+      },
+      opacity: {
+        "15": "0.15"
       }
     }
   },

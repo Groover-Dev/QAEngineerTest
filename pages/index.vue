@@ -1,5 +1,7 @@
 <template>
-  <div class="max-w-screen-xl mx-auto">Hello World</div>
+  <div class="max-w-screen-xl mx-auto">
+    <PhotoList />
+  </div>
 </template>
 
 <script lang="ts">
