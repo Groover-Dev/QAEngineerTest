@@ -2,14 +2,10 @@
   <div class="photo-list-container px-4">
     <ul
       class="grid sm:grid-cols-2 lg:grid-cols-3 gap-y-10 sm:gap-y-5 gap-x-5"
-      v-if="photoData"
+      v-if="photos"
       data-test="photo-list"
     >
-      <li
-        v-for="photo in photoData.photos"
-        :key="photo.id"
-        data-test="photo-list-item"
-      >
+      <li v-for="photo in photos" :key="photo.id" data-test="photo-list-item">
         <PhotoCard :photo="photo" />
       </li>
     </ul>
@@ -20,15 +16,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
-import { usePhotoData } from "~/composables/photo-data";
+import { computed, defineComponent, useFetch } from "@nuxtjs/composition-api";
+import { useStore } from "~/store";
 
 export default defineComponent({
   setup() {
-    const { photoData } = usePhotoData();
+    const store = useStore();
+    useFetch(async () => {
+      await store.dispatch("fetchCuratedPhotos");
+    });
 
     return {
-      photoData,
+      collectionData: computed(() => store.state.photoCollectionData),
+      photos: computed(() => store.state.photos),
     };
   },
 });

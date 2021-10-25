@@ -1,6 +1,6 @@
 export default {
   // Target: https://go.nuxtjs.dev/config-target
-  target: "static",
+  target: "server",
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -37,7 +37,7 @@ export default {
     // https://www.npmjs.com/package/@nuxtjs/google-fonts
     [
       "@nuxtjs/google-fonts",
-      { families: { "Zen+Kaku+Gothic+New": [400, 700] }, display: "swap" }
+      { families: { "Zen+Kaku+Gothic+New": [400, 500, 700] }, display: "swap" }
     ]
   ],
 
@@ -45,5 +45,10 @@ export default {
   modules: [],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {}
+  build: {},
+
+  serverMiddleware:
+    process.env.NODE_ENV === "production"
+      ? []
+      : ["~/api/photos.ts", "~/api/curated.ts"]
 };

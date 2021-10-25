@@ -1,5 +1,6 @@
 <template>
-  <div class="max-w-screen-xl mx-auto">
+  <div class="max-w-screen-xl mx-auto grid gap-y-12">
+    <FiltersForm />
     <PhotoList />
   </div>
 </template>
