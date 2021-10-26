@@ -14,6 +14,7 @@ async function fetchPhotosData(
 
 /**
  * Fetches photo data from the 'curated' api
+ * @param hostUrl {string}
  * @returns Promise
  */
 export async function useFetchCuratedPhotos(hostUrl: string) {
@@ -26,6 +27,30 @@ export async function useFetchCuratedPhotos(hostUrl: string) {
   return {
     photoData,
     photos
+  };
+}
+
+/**
+ * Fetches a single photo with the given id
+ * @param hostUrl {string}
+ * @param id {string}
+ * @returns Promise
+ */
+export async function useGetPhotoById(hostUrl: string, id: string) {
+  const photo = ref<PhotoResourceType | null>(null);
+
+  // const mockData = await (
+  //   await import("../static/photo-resources-mock.json")
+  // ).default.photos.find(photo => photo.id === Number(id));
+  // if (mockData) {
+  //   photo.value = mockData;
+  // }
+  photo.value = await fetch(`${hostUrl}/api/photos/${id}`).then(res =>
+    res.json()
+  );
+
+  return {
+    photo
   };
 }
 

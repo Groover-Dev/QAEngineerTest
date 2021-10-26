@@ -1,38 +1,40 @@
 <template>
-  <figure class="photo-container relative overflow-hidden bg-gray-200">
-    <img
-      class="absolute object-cover h-full w-full"
-      v-bind:src="photo.src.large"
-      alt=""
-      loading="lazy"
-    />
-    <figcaption
-      class="
-        caption-text
-        absolute
-        z-10
-        bottom-0
-        px-3
-        py-2
-        text-white
-        bg-opacity-15 bg-black
-        w-full
-        flex
-        justify-between
-      "
-    >
-      <span>Image size: {{ photo.width }} x {{ photo.height }}</span>
-      <div class="ml-2">
-        <span>Photo by</span>
-        <a
-          rel="external noreferrer noopener"
-          :href="photo.photographer_url"
-          class="font-bold hover:underline focus:underline"
-          >{{ photo.photographer }}</a
-        >
-      </div>
-    </figcaption>
-  </figure>
+  <NuxtLink :to="`/photos/${photo.id}`">
+    <figure class="photo-container relative overflow-hidden bg-gray-200">
+      <img
+        class="absolute object-cover h-full w-full"
+        v-bind:src="photo.src.large"
+        alt=""
+        loading="lazy"
+      />
+      <figcaption
+        class="
+          caption-text
+          absolute
+          z-10
+          bottom-0
+          px-3
+          py-2
+          text-white
+          bg-opacity-15 bg-black
+          w-full
+          flex
+          justify-between
+        "
+      >
+        <span>Image size: {{ photo.width }} x {{ photo.height }}</span>
+        <div class="ml-2">
+          <span>Photo by</span>
+          <a
+            rel="external noreferrer noopener"
+            :href="photo.photographer_url"
+            class="font-bold hover:underline focus:underline"
+            >{{ photo.photographer }}</a
+          >
+        </div>
+      </figcaption>
+    </figure>
+  </NuxtLink>
 </template>
 
 <script lang='ts'>
