@@ -15,19 +15,22 @@
         px-3
         py-2
         text-white
-        md:text-lg
         bg-opacity-15 bg-black
         w-full
-        text-right
+        flex
+        justify-between
       "
     >
-      <span>Photo by</span>
-      <a
-        rel="external noreferrer noopener"
-        :href="photo.photographer_url"
-        class="font-bold hover:underline focus:underline"
-        >{{ photo.photographer }}</a
-      >
+      <span>Image size: {{ photo.width }} x {{ photo.height }}</span>
+      <div class="ml-2">
+        <span>Photo by</span>
+        <a
+          rel="external noreferrer noopener"
+          :href="photo.photographer_url"
+          class="font-bold hover:underline focus:underline"
+          >{{ photo.photographer }}</a
+        >
+      </div>
     </figcaption>
   </figure>
 </template>

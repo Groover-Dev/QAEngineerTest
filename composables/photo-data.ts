@@ -1,6 +1,9 @@
 import { ref } from "@nuxtjs/composition-api";
+
 import { PexelsPhotoCollectionType } from "~/types/PexelsPhotoCollectionType";
 import { PhotoResourceType } from "~/types/PhotoResourceType";
+import { State } from "~/store";
+import { useColorConverter } from "./color-converter";
 
 async function fetchPhotosData(
   url: string
@@ -13,11 +16,11 @@ async function fetchPhotosData(
  * Fetches photo data from the 'curated' api
  * @returns Promise
  */
-export async function useFetchCuratedPhotos() {
+export async function useFetchCuratedPhotos(hostUrl: string) {
   const photoData = ref<PexelsPhotoCollectionType | null>(null);
   const photos = ref<PhotoResourceType[] | null>(null);
 
-  photoData.value = await fetchPhotosData("/api/curated");
+  photoData.value = await fetchPhotosData(`${hostUrl}/api/curated`);
   photos.value = photoData.value.photos;
 
   return {
@@ -29,15 +32,22 @@ export async function useFetchCuratedPhotos() {
 /**
  * Fetches photo data from the 'search' api if a search string is provided,
  * otherwise it gets data from the 'curated' api
+ * @param hostUrl {string}
  * @param search {string}
  * @returns Promise
  */
-export async function usePhotoDataSearch(search: string) {
-  if (!search) return useFetchCuratedPhotos();
+export async function usePhotoDataSearch(
+  hostUrl: string,
+  search: string,
+  color?: string
+) {
+  if (!search || !color) return useFetchCuratedPhotos(hostUrl);
 
-  const url = `api/photos?query=${search}`;
   const photoData = ref<PexelsPhotoCollectionType | null>(null);
   const photos = ref<PhotoResourceType[] | null>(null);
+
+  let url = `api/photos?query=${search}`;
+  url = color ? `${url}&color=${color}` : url;
 
   photoData.value = await fetchPhotosData(url);
   photos.value = photoData.value.photos;
@@ -46,4 +56,53 @@ export async function usePhotoDataSearch(search: string) {
     photoData,
     photos
   };
+}
+
+export function useFilterPhotos(
+  state: State,
+  nameSearch?: string,
+  maxWidth?: string,
+  maxHeight?: string,
+  colorHex?: string
+) {
+  let filtered = [...state.photos];
+
+  if (nameSearch) {
+    filtered = [
+      ...filtered.filter(photo => photo.photographer.includes(nameSearch))
+    ];
+  }
+  if (maxWidth) {
+    filtered = [...filtered.filter(photo => photo.width <= Number(maxWidth))];
+  }
+  if (maxHeight) {
+    filtered = [...filtered.filter(photo => photo.height <= Number(maxHeight))];
+  }
+  if (colorHex) {
+    const [h, s, l] = useColorConverter(colorHex);
+    filtered = [
+      ...filtered.filter(photo => {
+        const [pH, pS, pL] = useColorConverter(photo.avg_color);
+        const hueDeltaPercentage = getDegreeDeltaPercentage(h, pH);
+        const saturationDelta = Math.abs(s - pS);
+        const lightDelta = Math.abs(l - pL);
+
+        if (
+          hueDeltaPercentage <= 5 &&
+          saturationDelta <= 0.33 &&
+          lightDelta <= 0.4
+        ) {
+          return photo;
+        }
+      })
+    ];
+  }
+
+  return {
+    filteredPhotos: filtered
+  };
+}
+
+function getDegreeDeltaPercentage(a: number, b: number) {
+  return (Math.abs(a - b) / 360) * 100;
 }

@@ -2,7 +2,7 @@
   <div class="photo-list-container px-4">
     <ul
       class="grid sm:grid-cols-2 lg:grid-cols-3 gap-y-10 sm:gap-y-5 gap-x-5"
-      v-if="photos"
+      v-if="photos && photos.length"
       data-test="photo-list"
     >
       <li v-for="photo in photos" :key="photo.id" data-test="photo-list-item">
@@ -10,7 +10,7 @@
       </li>
     </ul>
     <h2 v-else class="text-center text-3xl font-bold" data-test="empty-message">
-      We couldn't find any photos
+      {{ emptyMessage }}
     </h2>
   </div>
 </template>
@@ -28,7 +28,12 @@ export default defineComponent({
 
     return {
       collectionData: computed(() => store.state.photoCollectionData),
-      photos: computed(() => store.state.photos),
+      photos: computed(() => store.state.filteredPhotos),
+      emptyMessage: computed(() =>
+        store.state.photos.length > 0 && store.state.filteredPhotos.length === 0
+          ? "No photos match your search criteria"
+          : "We couldn't find any photos"
+      ),
     };
   },
 });
