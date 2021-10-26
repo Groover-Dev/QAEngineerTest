@@ -1,11 +1,12 @@
 <template>
-  <NuxtLink :to="`/photos/${photo.id}`">
+  <NuxtLink :to="`/photos/${photo.id}`" no-prefetch>
     <figure class="photo-container relative overflow-hidden bg-gray-200">
       <img
         class="absolute object-cover h-full w-full"
-        v-bind:src="photo.src.large"
-        alt=""
+        :src="photo.src.large"
+        :alt="description"
         loading="lazy"
+        data-test="photo-img"
       />
       <figcaption
         class="
@@ -22,15 +23,19 @@
           justify-between
         "
       >
-        <span>Image size: {{ photo.width }} x {{ photo.height }}</span>
+        <span data-test="photo-size">
+          Image size: {{ photo.width }} x {{ photo.height }}
+        </span>
         <div class="ml-2">
           <span>Photo by</span>
           <a
             rel="external noreferrer noopener"
             :href="photo.photographer_url"
             class="font-bold hover:underline focus:underline"
-            >{{ photo.photographer }}</a
+            data-test="photographer-link"
           >
+            {{ photo.photographer }}
+          </a>
         </div>
       </figcaption>
     </figure>
@@ -38,7 +43,8 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent } from "@nuxtjs/composition-api";
+import { computed, defineComponent } from "@nuxtjs/composition-api";
+import { usePhotoUrlToText } from "~/composables/photo-url-to-text";
 
 export default defineComponent({
   props: {
@@ -46,6 +52,11 @@ export default defineComponent({
       type: Object,
       required: true,
     },
+  },
+  setup(props) {
+    return {
+      description: computed(() => usePhotoUrlToText(props.photo.url)),
+    };
   },
 });
 </script>

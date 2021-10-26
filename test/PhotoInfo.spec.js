@@ -30,10 +30,10 @@ describe("PhotoInfo", () => {
     wrapper = mount(PhotoInfo, { propsData: { photo } });
   });
 
-  test("displays photographer name and link", () => {
+  test("displays photographer link", () => {
     const name = wrapper.get('[data-test="photographer-name"]');
     expect(name.text()).toBe(photo.photographer);
-    expect(name.html().indexOf(photo.photographer_url)).toBeTruthy();
+    expect(name.attributes("href")).toBe(photo.photographer_url);
   });
 
   test("displays photo resolution", () => {
