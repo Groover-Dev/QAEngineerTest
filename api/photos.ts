@@ -4,7 +4,7 @@ import axios from "axios";
 import app from "./index";
 
 const baseUrl = "https://api.pexels.com/v1/";
-const per_page = 42;
+const per_page = 25;
 
 app.get("/api/photos", async function(req: Request, res: Response) {
   const { query, page } = req.query;

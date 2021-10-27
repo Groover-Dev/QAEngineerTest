@@ -4,12 +4,12 @@ import axios from "axios";
 import app from "./index";
 
 const baseUrl = "https://api.pexels.com/v1/curated";
-const per_page = 42;
+const per_page = 25;
 
 app.get("/api/curated", async function(req: Request, res: Response) {
   const { page } = req.query;
   const pageNum = (page && Number(page)) || 1;
-  const url = `${baseUrl}?&per_page=${per_page}&page=${pageNum}`;
+  const url = `${baseUrl}?page=${pageNum}&per_page=${per_page}`;
 
   try {
     const response = await axios.get(url, {

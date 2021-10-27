@@ -14,14 +14,20 @@ async function fetchPhotosData(
 
 /**
  * Fetches photo data from the 'curated' api
- * @param hostUrl {string}
- * @returns Promise
+ * @param {string} hostUrl
+ * @param {string} [page=1]
+ * @returns {Promise}
  */
-export async function useFetchCuratedPhotos(hostUrl: string) {
+export async function useFetchCuratedPhotos(
+  hostUrl: string,
+  page: string = "1"
+) {
   const photoData = ref<PexelsPhotoCollectionType | null>(null);
   const photos = ref<PhotoResourceType[] | null>(null);
 
-  photoData.value = await fetchPhotosData(`${hostUrl}/api/curated`);
+  photoData.value = await fetchPhotosData(
+    `${hostUrl}/api/curated?page=${page}`
+  );
   photos.value = photoData.value.photos;
 
   return {
@@ -32,9 +38,9 @@ export async function useFetchCuratedPhotos(hostUrl: string) {
 
 /**
  * Fetches a single photo with the given id
- * @param hostUrl {string}
- * @param id {string}
- * @returns Promise
+ * @param {string} hostUrl
+ * @param {string} id
+ * @returns {Promise}
  */
 export async function useGetPhotoById(hostUrl: string, id: string) {
   const photo = ref<PhotoResourceType | null>(null);
@@ -57,9 +63,9 @@ export async function useGetPhotoById(hostUrl: string, id: string) {
 /**
  * Fetches photo data from the 'search' api if a search string is provided,
  * otherwise it gets data from the 'curated' api
- * @param hostUrl {string}
- * @param search {string}
- * @returns Promise
+ * @param {string} hostUrl
+ * @param {string} search
+ * @returns {Promise}
  */
 export async function usePhotoDataSearch(
   hostUrl: string,
@@ -84,17 +90,19 @@ export async function usePhotoDataSearch(
 }
 
 export function useFilterPhotos(
-  state: State,
+  photos: PhotoResourceType[],
   nameSearch?: string,
   maxWidth?: string,
   maxHeight?: string,
   colorHex?: string
 ) {
-  let filtered = [...state.photos];
+  let filtered = [...photos];
 
   if (nameSearch) {
     filtered = [
-      ...filtered.filter(photo => photo.photographer.includes(nameSearch))
+      ...filtered.filter(photo =>
+        photo.photographer.toLowerCase().includes(nameSearch.toLowerCase())
+      )
     ];
   }
   if (maxWidth) {
@@ -104,24 +112,27 @@ export function useFilterPhotos(
     filtered = [...filtered.filter(photo => photo.height <= Number(maxHeight))];
   }
   if (colorHex) {
-    const [h, s, l] = useColorConverter(colorHex);
+    const hsl = useColorConverter(colorHex);
     filtered = [
       ...filtered.filter(photo => {
-        const [pH, pS, pL] = useColorConverter(photo.avg_color);
-        const hueDeltaPercentage = getDegreeDeltaPercentage(h, pH);
-        const saturationDelta = Math.abs(s - pS);
-        const lightDelta = Math.abs(l - pL);
-
-        if (
-          hueDeltaPercentage <= 5 &&
-          saturationDelta <= 0.33 &&
-          lightDelta <= 0.4
-        ) {
-          return photo;
-        }
+        const photoHsl = useColorConverter(photo.avg_color);
+        return doColorsMatch(hsl, photoHsl);
       })
     ];
   }
+
+  filtered = [
+    ...filtered.sort((a, b) => {
+      const [hue1] = useColorConverter(a.avg_color);
+      const [hue2] = useColorConverter(b.avg_color);
+      return (
+        a.photographer.localeCompare(b.photographer) ||
+        a.width - b.width ||
+        a.height - b.height ||
+        hue1 - hue2
+      );
+    })
+  ];
 
   return {
     filteredPhotos: filtered
@@ -130,4 +141,17 @@ export function useFilterPhotos(
 
 function getDegreeDeltaPercentage(a: number, b: number) {
   return (Math.abs(a - b) / 360) * 100;
+}
+
+function doColorsMatch(hsl: number[], hsl2: number[]) {
+  const [h, s, l] = hsl;
+  const [pH, pS, pL] = hsl2;
+  const hueDeltaPercentage = getDegreeDeltaPercentage(h, pH);
+  const saturationDelta = Math.abs(s - pS);
+  const lightDelta = Math.abs(l - pL);
+
+  if (hueDeltaPercentage <= 5 && saturationDelta <= 0.33 && lightDelta <= 0.4) {
+    return true;
+  }
+  return false;
 }

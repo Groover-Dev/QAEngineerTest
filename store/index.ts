@@ -8,13 +8,16 @@ import {
   usePhotoDataSearch,
   useFilterPhotos
 } from "~/composables/photo-data";
+import { useGetNextPageFromUrl } from "~/composables/get-next-page-from-url";
 import { CollectionMetaDataType } from "~/types/CollectionMetaDataType";
+import { FiltersType } from "~/types/FiltersType";
 import { PhotoResourceType } from "~/types/PhotoResourceType";
 
 export interface State {
   photoCollectionData: CollectionMetaDataType;
   photos: PhotoResourceType[];
   filteredPhotos: PhotoResourceType[];
+  filters: FiltersType;
   hostUrl: string;
 }
 
@@ -24,6 +27,7 @@ export const state = () => ({
   photoCollectionData: {},
   photos: [],
   filteredPhotos: [],
+  filters: {},
   hostUrl: ""
 });
 
@@ -46,6 +50,9 @@ export const mutations = {
   setFilteredPhotos(state: State, photos: PhotoResourceType[]) {
     state.filteredPhotos = [...photos];
   },
+  setFilters(state: State, filters: FiltersType) {
+    state.filters = { ...filters };
+  },
   setHostUrl(state: State, url: string) {
     state.hostUrl = url;
   }
@@ -62,8 +69,36 @@ export const actions = {
   async fetchCuratedPhotos({ commit, state }: { commit: any; state: State }) {
     const { photoData, photos } = await useFetchCuratedPhotos(state.hostUrl);
     commit("setPhotos", photos.value);
-    commit("setFilteredPhotos", photos.value);
     commit("setPhotoCollectionData", photoData.value);
+
+    const { filteredPhotos } = useFilterPhotos(
+      state.photos,
+      state.filters.nameSearch,
+      state.filters.maxWidth,
+      state.filters.maxHeight,
+      state.filters.colorHex
+    );
+    commit("setFilteredPhotos", filteredPhotos);
+  },
+  async fetchMorePhotos({
+    dispatch,
+    commit,
+    state
+  }: {
+    dispatch: any;
+    commit: any;
+    state: State;
+  }) {
+    const nextPage = useGetNextPageFromUrl(state.photoCollectionData.next_page);
+    if (nextPage) {
+      const { photoData, photos } = await useFetchCuratedPhotos(
+        state.hostUrl,
+        nextPage
+      );
+      commit("addPhotos", photos.value);
+      commit("setPhotoCollectionData", photoData.value);
+      dispatch("filterPhotos", state.filters);
+    }
   },
   async searchPhotosApi(
     { commit, state }: { commit: any; state: State },
@@ -78,7 +113,7 @@ export const actions = {
     commit("setFilteredPhotos", photos.value);
     commit("setPhotoCollectionData", photoData.value);
   },
-  searchPhotos(
+  filterPhotos(
     { commit, state }: { commit: any; state: State },
     {
       nameSearch,
@@ -93,12 +128,13 @@ export const actions = {
     }
   ) {
     const { filteredPhotos } = useFilterPhotos(
-      state,
+      state.photos,
       nameSearch,
       maxWidth,
       maxHeight,
       colorHex
     );
+    commit("setFilters", { nameSearch, maxWidth, maxHeight, colorHex });
     commit("setFilteredPhotos", filteredPhotos);
   }
 };

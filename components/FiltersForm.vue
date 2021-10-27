@@ -35,25 +35,7 @@
       </div>
     </div>
     <div class="text-center mt-6">
-      <button
-        class="
-          border border-gray-500
-          rounded-full
-          px-4
-          py-2
-          pb-3
-          text-lg
-          font-medium
-          motion-safe:transition-colors
-          duration-300
-          ease-in-out
-          hover:text-white hover:bg-gray-800
-        "
-        type="button"
-        @click="clearFilters"
-      >
-        Clear Filters
-      </button>
+      <BaseButton @button-click="clearFilters"> Clear Filters </BaseButton>
     </div>
   </form>
 </template>
@@ -75,7 +57,7 @@ export default defineComponent({
   },
   methods: {
     performSearch: debounce(function (this: any) {
-      this.$store.dispatch("searchPhotos", {
+      this.$store.dispatch("filterPhotos", {
         nameSearch: this.searchText,
         maxWidth: this.maxWidth,
         maxHeight: this.maxHeight,
