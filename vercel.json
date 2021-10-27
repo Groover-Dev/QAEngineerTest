@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "routes": [
+    {
+      "src": "api/photos",
+      "dest": "api/photos.ts"
+    },
+    {
+      "src": "api/curated",
+      "dest": "api/curated.ts"
+    }
+  ],
+  "builds": [
+    {
+      "src": "nuxt.config.js",
+      "use": "@nuxtjs/vercel-builder"
+    }
+  ]
+}
