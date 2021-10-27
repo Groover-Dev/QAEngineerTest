@@ -1,4 +1,4 @@
-# Photo Rate
+# Photo View
 
 ## Build Setup
 

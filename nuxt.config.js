@@ -4,7 +4,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: "Photo Rate",
+    title: "Photo View",
     htmlAttrs: {
       lang: "en"
     },

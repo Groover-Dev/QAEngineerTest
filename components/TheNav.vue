@@ -1,6 +1,6 @@
 <template>
   <nav class="max-w-screen-xl mx-auto px-4">
-    <NuxtLink to="/" class="text-4xl">Photo Rate</NuxtLink>
+    <NuxtLink to="/" class="text-4xl">Photo View</NuxtLink>
   </nav>
 </template>
 
