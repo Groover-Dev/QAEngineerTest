@@ -44,9 +44,15 @@ import { State } from "~/store";
 import { useGetPhotoById } from "~/composables/photo-data";
 import { usePhotoUrlToText } from "~/composables/photo-url-to-text";
 import { PhotoResourceType } from "~/types/PhotoResourceType";
+import capitalize from "lodash/capitalize";
 
 export default defineComponent({
   layout: "default",
+  head() {
+    return {
+      title: `Photo View | ${capitalize(this.description as string)}`,
+    };
+  },
   setup() {
     const route = useRoute();
     const store = useStore<State>();
