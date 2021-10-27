@@ -7,6 +7,5 @@
       <nuxt />
       <pexels-attribution></pexels-attribution>
     </main>
-    <footer></footer>
   </div>
 </template>
