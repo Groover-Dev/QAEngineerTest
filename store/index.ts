@@ -76,7 +76,8 @@ export const actions = {
         state.filters.nameSearch,
         state.filters.maxWidth,
         state.filters.maxHeight,
-        state.filters.colorHex
+        state.filters.colorHex,
+        state.filters.sort
       );
       commit("setFilteredPhotos", filteredPhotos);
     });
@@ -106,12 +107,14 @@ export const actions = {
       nameSearch,
       maxWidth,
       maxHeight,
-      colorHex
+      colorHex,
+      sort
     }: {
       nameSearch?: string;
       maxWidth?: string;
       maxHeight?: string;
       colorHex?: string;
+      sort?: string;
     }
   ) {
     const { filteredPhotos } = useFilterPhotos(
@@ -119,9 +122,10 @@ export const actions = {
       nameSearch,
       maxWidth,
       maxHeight,
-      colorHex
+      colorHex,
+      sort
     );
-    commit("setFilters", { nameSearch, maxWidth, maxHeight, colorHex });
+    commit("setFilters", { nameSearch, maxWidth, maxHeight, colorHex, sort });
     commit("setFilteredPhotos", filteredPhotos);
   }
 };

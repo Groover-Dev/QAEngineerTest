@@ -3,4 +3,5 @@ export interface FiltersType {
   maxWidth?: string;
   maxHeight?: string;
   colorHex?: string;
+  sort?: string;
 }

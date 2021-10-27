@@ -64,7 +64,8 @@ export function useFilterPhotos(
   nameSearch?: string,
   maxWidth?: string,
   maxHeight?: string,
-  colorHex?: string
+  colorHex?: string,
+  sort?: string
 ) {
   let filtered = [...photos];
 
@@ -91,18 +92,9 @@ export function useFilterPhotos(
     ];
   }
 
-  filtered = [
-    ...filtered.sort((a, b) => {
-      const [hue1] = useColorConverter(a.avg_color);
-      const [hue2] = useColorConverter(b.avg_color);
-      return (
-        a.photographer.localeCompare(b.photographer) ||
-        a.width - b.width ||
-        a.height - b.height ||
-        hue1 - hue2
-      );
-    })
-  ];
+  if (sort === "a-z") {
+    filtered = [...sortPhotos(filtered)];
+  }
 
   return {
     filteredPhotos: filtered
@@ -124,4 +116,21 @@ function doColorsMatch(hsl: number[], hsl2: number[]) {
     return true;
   }
   return false;
+}
+
+function sortPhotos(photos: PhotoResourceType[]) {
+  const sorted = [
+    ...photos.sort((a, b) => {
+      const [hue1] = useColorConverter(a.avg_color);
+      const [hue2] = useColorConverter(b.avg_color);
+      return (
+        a.photographer.localeCompare(b.photographer) ||
+        a.width - b.width ||
+        a.height - b.height ||
+        hue1 - hue2
+      );
+    })
+  ];
+
+  return sorted;
 }

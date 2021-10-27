@@ -16,7 +16,7 @@
     role="search"
     @submit.prevent="performSearch"
   >
-    <div class="grid md:grid-cols-3 gap-4 sm:gap-6">
+    <div class="grid md:grid-cols-4 gap-4 sm:gap-6 items-end">
       <div class="flex items-end">
         <FiltersFormSearch
           :searchText="searchText"
@@ -56,7 +56,7 @@
           filter-forms__mobile-filters
           md:hidden
           grid
-          sm:grid-cols-2
+          sm:grid-cols-3
           gap-4
           sm:gap-6
         "
@@ -70,7 +70,9 @@
           class="filter-forms__dimension-inputs-container"
           v-show="showFilters"
         >
-          <FiltersFormLabel> Filter by size (up to px): </FiltersFormLabel>
+          <FiltersFormLabel>
+            Filter size <span class="text-sm">(up to px)</span>
+          </FiltersFormLabel>
           <div class="mt-2 sm:mt-4 flex">
             <FiltersFormDimensionInput
               id="maxWidth"
@@ -87,6 +89,11 @@
             />
           </div>
         </div>
+        <FiltersFormSortSelect
+          v-show="showFilters"
+          :sort="sort"
+          @update:sort="updateSort"
+        />
       </div>
       <FiltersFormColorPicker
         class="hidden md:block"
@@ -94,7 +101,9 @@
         @update:colorHex="updateColorHex"
       />
       <div class="filter-forms__dimension-inputs-container hidden md:block">
-        <FiltersFormLabel> Filter by size (up to px): </FiltersFormLabel>
+        <FiltersFormLabel>
+          Filter size <span class="text-sm">(up to px)</span>
+        </FiltersFormLabel>
         <div class="mt-2 sm:mt-4 flex">
           <FiltersFormDimensionInput
             id="maxWidth"
@@ -111,6 +120,11 @@
           />
         </div>
       </div>
+      <FiltersFormSortSelect
+        class="hidden md:block"
+        :sort="sort"
+        @update:sort="updateSort"
+      />
     </div>
     <div class="text-center mt-6 md:hidden" v-show="showFilters">
       <BaseButton @button-click="clearFilters"> Clear Filters </BaseButton>
@@ -134,6 +148,7 @@ export default defineComponent({
       colorHex: defaultColor,
       maxWidth: "",
       maxHeight: "",
+      sort: "newest",
       showFilters: false,
     };
   },
@@ -144,6 +159,7 @@ export default defineComponent({
         maxWidth: this.maxWidth,
         maxHeight: this.maxHeight,
         colorHex: this.colorHex !== defaultColor ? this.colorHex : undefined,
+        sort: this.sort,
       });
     }, 350),
     updateSearchText(event: InputEvent) {
@@ -162,11 +178,16 @@ export default defineComponent({
       this.maxHeight = (event.target as HTMLInputElement).value;
       this.performSearch();
     },
+    updateSort(event: InputEvent) {
+      this.sort = (event.target as HTMLSelectElement).value;
+      this.performSearch();
+    },
     clearFilters() {
       this.searchText = "";
       this.maxWidth = "";
       this.maxHeight = "";
       this.colorHex = defaultColor;
+      this.sort = "newest";
       this.performSearch();
     },
     toggleShowFilters() {
@@ -182,7 +203,7 @@ export default defineComponent({
 }
 
 .filters-form__container--show {
-  height: 23.3125rem;
+  height: 28.4375rem;
 }
 
 .filters-form__toggle-btn {
@@ -191,7 +212,7 @@ export default defineComponent({
 
 @media screen and (prefers-reduced-motion: no-preference) {
   .filters-form__container {
-    transition: height 300ms ease-in-out;
+    transition: height 300ms ease-out;
   }
 }
 
@@ -201,7 +222,7 @@ export default defineComponent({
   }
 
   .filters-form__container--show {
-    height: 19.5625rem;
+    height: 19rem;
   }
 }
 

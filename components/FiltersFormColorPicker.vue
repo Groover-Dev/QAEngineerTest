@@ -1,6 +1,6 @@
 <template>
   <div>
-    <FiltersFormLabel htmlFor="color"> Filter by color: </FiltersFormLabel>
+    <FiltersFormLabel htmlFor="color"> Filter color </FiltersFormLabel>
     <div
       class="
         color-picker__input-container
