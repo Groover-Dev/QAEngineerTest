@@ -1,6 +1,10 @@
 <template>
-  <NuxtLink :to="`/photos/${photo.id}`" no-prefetch>
-    <figure class="photo-container relative overflow-hidden bg-gray-200">
+  <figure class="photo-container relative bg-gray-200">
+    <NuxtLink
+      :to="`/photos/${photo.id}`"
+      no-prefetch
+      class="h-full w-full absolute"
+    >
       <img
         class="absolute object-cover h-full w-full"
         :src="photo.src.large"
@@ -8,38 +12,37 @@
         loading="lazy"
         data-test="photo-img"
       />
-      <figcaption
-        class="
-          caption-text
-          absolute
-          z-10
-          bottom-0
-          px-3
-          py-2
-          text-white
-          bg-opacity-15 bg-black
-          w-full
-          flex
-          justify-between
-        "
-      >
-        <span data-test="photo-size">
-          Image size: {{ photo.width }} x {{ photo.height }}
-        </span>
-        <div class="ml-2">
-          <span>Photo by</span>
-          <a
-            rel="external noreferrer noopener"
-            :href="photo.photographer_url"
-            class="font-bold hover:underline focus:underline"
-            data-test="photographer-link"
-          >
-            {{ photo.photographer }}
-          </a>
-        </div>
-      </figcaption>
-    </figure>
-  </NuxtLink>
+    </NuxtLink>
+    <figcaption
+      class="
+        absolute
+        z-10
+        bottom-0
+        px-3
+        py-2
+        text-white
+        bg-opacity-15 bg-black
+        w-full
+        flex
+        justify-between
+      "
+    >
+      <span data-test="photo-size">
+        Image size: {{ photo.width }} x {{ photo.height }}
+      </span>
+      <div class="ml-2">
+        <span>Photo by</span>
+        <a
+          rel="external noreferrer noopener"
+          :href="photo.photographer_url"
+          class="font-bold hover:underline focus:underline focus:outline-white"
+          data-test="photographer-link"
+        >
+          {{ photo.photographer }}
+        </a>
+      </div>
+    </figcaption>
+  </figure>
 </template>
 
 <script lang='ts'>
