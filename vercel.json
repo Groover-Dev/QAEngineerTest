@@ -3,16 +3,16 @@
   "routes": [
     {
       "src": "/api/photos/(?<id>[^/]+)",
-      "dest": "/api/photos/[id].ts?id=$id"
+      "dest": "/api/photos/[id].js?id=$id"
     },
     {
       "src": "/api/curated",
-      "dest": "/api/curated.ts"
+      "dest": "/api/curated.js"
     }
   ],
   "builds": [
     {
-      "src": "api/**/*.ts",
+      "src": "api/**/*.js",
       "use": "@vercel/node"
     },
     {

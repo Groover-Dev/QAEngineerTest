@@ -50,5 +50,5 @@ export default {
   serverMiddleware:
     process.env.NODE_ENV === "production"
       ? []
-      : ["~/api/photos/[id].ts", "~/api/curated.ts"]
+      : ["~/api/photos/[id].js", "~/api/curated.js"]
 };

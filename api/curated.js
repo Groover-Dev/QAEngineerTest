@@ -1,13 +1,18 @@
-import { Request, Response } from "express";
+import express from "express";
 import axios from "axios";
 
-import app from "../index";
+const app = express();
 
-const baseUrl = "https://api.pexels.com/v1/";
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-app.get("/api/photos/:id", async function(req: Request, res: Response) {
-  const { id } = req.params;
-  const url = `${baseUrl}/photos/${id}`;
+const baseUrl = "https://api.pexels.com/v1/curated";
+const per_page = 25;
+
+app.get("/api/curated", async function getCuratedPhotos(req, res) {
+  const { page } = req.query;
+  const pageNum = (page && Number(page)) || 1;
+  const url = `${baseUrl}?page=${pageNum}&per_page=${per_page}`;
 
   try {
     const response = await axios.get(url, {
@@ -17,7 +22,6 @@ app.get("/api/photos/:id", async function(req: Request, res: Response) {
     });
     res.send(response.data);
   } catch (err) {
-    const error = err as any;
     console.log(err);
     res.status(error.response ? error.response.status : 404).json({
       error: error.response ? error.response.statusText : "404 Not Found"
