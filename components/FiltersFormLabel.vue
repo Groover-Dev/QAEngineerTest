@@ -1,5 +1,5 @@
 <template>
-  <span>
+  <span data-test="filters-form-label">
     <label
       v-if="htmlFor"
       :for="htmlFor"
