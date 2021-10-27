@@ -2,11 +2,23 @@
   <figure class="photo-container relative bg-gray-200">
     <NuxtLink
       :to="`/photos/${photo.id}`"
+      class="h-full w-full absolute overflow-hidden"
       no-prefetch
-      class="h-full w-full absolute"
     >
       <img
-        class="absolute object-cover h-full w-full opacity-0"
+        class="
+          photo-card__img
+          absolute
+          object-cover
+          h-full
+          w-full
+          opacity-0
+          transform
+          motion-safe:transition motion-safe:transition-transform
+          ease-in-out
+          duration-1000
+          hover:scale-105
+        "
         :class="{ 'fade-in': photoLoaded }"
         :src="photo.src.large"
         :alt="description"

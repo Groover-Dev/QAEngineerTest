@@ -7,7 +7,7 @@
           Photographer
         </span>
         <a
-          class="font-bold hover:underline"
+          class="font-bold whitespace-nowrap hover:underline"
           :href="photo.photographer_url"
           data-test="photographer-name"
           rel="external noreferrer noopener"
@@ -19,7 +19,7 @@
         <span class="text-gray-600 text-sm photo-info__text-label">
           Resolution
         </span>
-        <span class="font-bold" data-test="photo-resolution">
+        <span class="font-bold whitespace-nowrap" data-test="photo-resolution">
           {{ photo.width }}px x {{ photo.height }}px
         </span>
       </li>
