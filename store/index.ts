@@ -66,18 +66,20 @@ export const actions = {
     commit("setHostUrl", hostUrl);
   },
   async fetchCuratedPhotos({ commit, state }: { commit: any; state: State }) {
-    const { photoData, photos } = await useFetchCuratedPhotos(state.hostUrl);
-    commit("setPhotos", photos.value);
-    commit("setPhotoCollectionData", photoData.value);
+    await useFetchCuratedPhotos(state.hostUrl).then(data => {
+      const { photoData, photos } = data;
+      commit("setPhotos", photos.value);
+      commit("setPhotoCollectionData", photoData.value);
 
-    const { filteredPhotos } = useFilterPhotos(
-      state.photos,
-      state.filters.nameSearch,
-      state.filters.maxWidth,
-      state.filters.maxHeight,
-      state.filters.colorHex
-    );
-    commit("setFilteredPhotos", filteredPhotos);
+      const { filteredPhotos } = useFilterPhotos(
+        state.photos,
+        state.filters.nameSearch,
+        state.filters.maxWidth,
+        state.filters.maxHeight,
+        state.filters.colorHex
+      );
+      commit("setFilteredPhotos", filteredPhotos);
+    });
   },
   async fetchMorePhotos({
     dispatch,
@@ -90,13 +92,12 @@ export const actions = {
   }) {
     const nextPage = useGetNextPageFromUrl(state.photoCollectionData.next_page);
     if (nextPage) {
-      const { photoData, photos } = await useFetchCuratedPhotos(
-        state.hostUrl,
-        nextPage
-      );
-      commit("addPhotos", photos.value);
-      commit("setPhotoCollectionData", photoData.value);
-      dispatch("filterPhotos", state.filters);
+      await useFetchCuratedPhotos(state.hostUrl, nextPage).then(data => {
+        const { photoData, photos } = data;
+        commit("addPhotos", photos.value);
+        commit("setPhotoCollectionData", photoData.value);
+        dispatch("filterPhotos", state.filters);
+      });
     }
   },
   filterPhotos(

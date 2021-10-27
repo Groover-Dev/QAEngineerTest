@@ -21,30 +21,16 @@
         <BaseButton @button-click="loadMorePhotos" v-if="!loadingMore">
           Load more
         </BaseButton>
-        <p class="text-3xl font-bold" v-else>Getting more photos...</p>
+        <StateMessage v-else>Getting more photos...</StateMessage>
       </div>
     </div>
-    <p
-      v-else-if="!$fetchState.pending"
-      class="text-center text-3xl font-bold"
-      data-test="empty-message"
-    >
-      {{ emptyMessage }}
-    </p>
-    <p
-      v-else-if="$fetchState.pending"
-      class="text-center text-3xl font-bold"
-      data-test="empty-message"
-    >
-      Loading...
-    </p>
-    <p
-      v-else-if="$fetchState.error"
-      class="text-center text-3xl font-bold"
-      data-test="empty-message"
-    >
+    <StateMessage v-else-if="$fetchState.pending">Loading...</StateMessage>
+    <StateMessage v-else-if="$fetchState.error">
       Oh no! An error occurred
-    </p>
+    </StateMessage>
+    <StateMessage v-else-if="!$fetchState.pending && !$fetchState.error">
+      {{ emptyMessage }}
+    </StateMessage>
   </div>
 </template>
 
@@ -55,6 +41,7 @@ import { useStore } from "~/store";
 export default defineComponent({
   setup() {
     const store = useStore();
+
     useFetch(async () => {
       await store.dispatch("fetchCuratedPhotos");
     });

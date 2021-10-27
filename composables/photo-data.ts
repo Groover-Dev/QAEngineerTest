@@ -7,7 +7,6 @@ import { useColorConverter } from "./color-converter";
 async function fetchPhotosData(
   url: string
 ): Promise<PexelsPhotoCollectionType> {
-  console.log("fetch", url);
   //return await (await import("../static/photo-resources-mock.json")).default;
   return await fetch(url).then(res => res.json());
 }
@@ -22,14 +21,13 @@ export async function useFetchCuratedPhotos(
   hostUrl: string,
   page: string = "1"
 ) {
-  console.log("curated call", hostUrl);
   const photoData = ref<PexelsPhotoCollectionType | null>(null);
   const photos = ref<PhotoResourceType[] | null>(null);
 
-  photoData.value = await fetchPhotosData(
-    `${hostUrl}/api/curated?page=${page}`
-  );
-  photos.value = photoData.value.photos;
+  await fetchPhotosData(`${hostUrl}/api/curated?page=${page}`).then(data => {
+    photoData.value = data;
+    photos.value = photoData.value.photos;
+  });
 
   return {
     photoData,
@@ -45,7 +43,6 @@ export async function useFetchCuratedPhotos(
  */
 export async function useGetPhotoById(hostUrl: string, id: string) {
   const photo = ref<PhotoResourceType | null>(null);
-  console.log("photo id call", hostUrl);
 
   // const mockData = await (
   //   await import("../static/photo-resources-mock.json")
