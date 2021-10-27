@@ -1,5 +1,5 @@
 <template>
-  <figure class="photo-container relative bg-gray-200">
+  <figure class="photo-container relative bg-gray-200" @click="clearFilters">
     <NuxtLink
       :to="`/photos/${photo.id}`"
       class="h-full w-full absolute overflow-hidden"
@@ -79,6 +79,9 @@ export default defineComponent({
   methods: {
     setLoaded() {
       this.photoLoaded = true;
+    },
+    clearFilters() {
+      this.$store.dispatch("clearFilters");
     },
   },
 });

@@ -22,11 +22,19 @@ export interface State {
 
 export const key: InjectionKey<State> = Symbol();
 
+const defaultFilters = {
+  nameSearch: "",
+  maxWidth: "",
+  maxHeight: "",
+  colorHex: "",
+  sort: "newest"
+};
+
 export const state = () => ({
   photoCollectionData: {},
   photos: [],
   filteredPhotos: [],
-  filters: {},
+  filters: defaultFilters,
   hostUrl: ""
 });
 
@@ -127,6 +135,9 @@ export const actions = {
     );
     commit("setFilters", { nameSearch, maxWidth, maxHeight, colorHex, sort });
     commit("setFilteredPhotos", filteredPhotos);
+  },
+  clearFilters({ commit }: { commit: any }) {
+    commit("setFilters", defaultFilters);
   }
 };
 
