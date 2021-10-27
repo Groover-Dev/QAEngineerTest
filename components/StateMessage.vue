@@ -1,3 +1,3 @@
 <template>
-  <p class="text-center text-3xl font-bold"><slot></slot></p>
+  <div class="text-center text-2xl font-bold"><slot></slot></div>
 </template>

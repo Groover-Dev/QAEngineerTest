@@ -89,10 +89,4 @@ export default defineComponent({
 .photo-details__image {
   max-height: 650px;
 }
-
-@media screen and (prefers-reduced-motion: no-preference) {
-  .fade-in {
-    animation: fade-in 500ms ease-in-out forwards;
-  }
-}
 </style>

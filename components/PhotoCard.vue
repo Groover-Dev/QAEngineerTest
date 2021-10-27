@@ -110,10 +110,4 @@ export default defineComponent({
     min-height: 608px;
   }
 }
-
-@media screen and (prefers-reduced-motion: no-preference) {
-  .fade-in {
-    animation: fade-in 500ms ease-in-out forwards;
-  }
-}
 </style>

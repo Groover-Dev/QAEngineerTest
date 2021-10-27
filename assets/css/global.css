@@ -19,3 +19,13 @@ a:focus-visible {
     opacity: 1;
   }
 }
+
+.fade-in {
+  animation: fade-in 500ms ease-in-out forwards;
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+  .fade-in {
+    animation-duration: 0s;
+  }
+}
