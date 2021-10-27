@@ -11,9 +11,12 @@
           object-cover
           sm:pl-4
           md:object-contain
+          opacity-0
         "
+        :class="{ 'fade-in': photoLoaded }"
         :src="photo.src.large"
         alt=""
+        @load="setLoaded"
       />
       <div class="mt-4 sm:mt-0 px-4 sm:pl-0">
         <h1 class="capitalize text-2xl font-bold">
@@ -70,8 +73,14 @@ export default defineComponent({
     return {
       id,
       photo,
+      photoLoaded: false,
       description: computed(() => usePhotoUrlToText(photo.value?.url)),
     };
+  },
+  methods: {
+    setLoaded() {
+      this.photoLoaded = true;
+    },
   },
 });
 </script>
@@ -79,5 +88,11 @@ export default defineComponent({
 <style scoped>
 .photo-details__image {
   max-height: 650px;
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+  .fade-in {
+    animation: fade-in 500ms ease-in-out forwards;
+  }
 }
 </style>

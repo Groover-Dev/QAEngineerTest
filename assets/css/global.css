@@ -1,6 +1,20 @@
-input:focus,
 button:focus,
 a:focus {
+  outline: none;
+}
+
+input:focus,
+button:focus-visible,
+a:focus-visible {
   outline: 2px dashed #333;
   outline-offset: 0.25rem;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

@@ -6,11 +6,13 @@
       class="h-full w-full absolute"
     >
       <img
-        class="absolute object-cover h-full w-full"
+        class="absolute object-cover h-full w-full opacity-0"
+        :class="{ 'fade-in': photoLoaded }"
         :src="photo.src.large"
         :alt="description"
         loading="lazy"
         data-test="photo-img"
+        @load="setLoaded"
       />
     </NuxtLink>
     <figcaption
@@ -59,7 +61,13 @@ export default defineComponent({
   setup(props) {
     return {
       description: computed(() => usePhotoUrlToText(props.photo.url)),
+      photoLoaded: false,
     };
+  },
+  methods: {
+    setLoaded() {
+      this.photoLoaded = true;
+    },
   },
 });
 </script>
@@ -85,6 +93,12 @@ export default defineComponent({
 @media screen and (min-width: 80em) {
   .photo-container {
     min-height: 608px;
+  }
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+  .fade-in {
+    animation: fade-in 500ms ease-in-out forwards;
   }
 }
 </style>
