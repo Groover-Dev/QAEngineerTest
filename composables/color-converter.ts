@@ -13,10 +13,10 @@ function covertHexToRgb(hex: string) {
 
 /**
  * See: https://stackoverflow.com/questions/3732046/how-do-you-get-the-hue-of-a-xxxxxx-colour
- * @param red {Number}
- * @param green {Number}
- * @param blue {Number}
- * @returns Array
+ * @param {Number} red
+ * @param {Number} green
+ * @param {Number} blue
+ * @returns {Array}
  */
 function convertRgbToHsl(red: number, green: number, blue: number) {
   const r = red / 255;

@@ -3,8 +3,9 @@
     <label
       for="search-input"
       class="text-lg sm:border-b border-gray-300 pb-1 w-full sm:block"
-      >Search by photographer</label
     >
+      Search by photographer
+    </label>
     <div class="relative mt-4">
       <input
         class="
