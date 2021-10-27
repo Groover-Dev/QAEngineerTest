@@ -62,7 +62,7 @@ export const actions = {
     const hostUrl =
       req.headers.host.indexOf("localhost:3000") > -1
         ? `http://${req.headers.host}`
-        : req.headers.host;
+        : `https://${req.headers.host}`;
     commit("setHostUrl", hostUrl);
   },
   async fetchCuratedPhotos({ commit, state }: { commit: any; state: State }) {
