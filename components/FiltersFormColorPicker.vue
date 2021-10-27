@@ -3,8 +3,9 @@
     <label
       for="color"
       class="text-lg sm:border-b border-gray-300 sm:pb-1 w-full sm:block"
-      >Filter by color:</label
     >
+      Filter by color:
+    </label>
     <div
       class="
         color-picker__input-container
@@ -57,6 +58,11 @@ export default defineComponent({
 .color-picker__input-container {
   height: 2.875rem;
   width: 2.875rem;
+}
+
+.color-picker__input-container:focus-within {
+  outline: 2px dashed #333;
+  outline-offset: 0.25rem;
 }
 
 .color-picker__input {

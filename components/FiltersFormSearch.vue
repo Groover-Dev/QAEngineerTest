@@ -31,7 +31,7 @@
         title="search"
         id="search-button"
         type="submit"
-        class="absolute right-0 h-full px-3"
+        class="absolute top-0 right-0 h-full px-3"
       >
         <svg
           role="img"

@@ -6,6 +6,7 @@
       px-4
       py-2
       pb-3
+      whitespace-nowrap
       text-lg
       font-medium
       motion-safe:transition-colors

@@ -1,0 +1,6 @@
+input:focus,
+button:focus,
+a:focus {
+  outline: 2px dashed #333;
+  outline-offset: 0.25rem;
+}
