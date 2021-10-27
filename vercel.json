@@ -22,10 +22,5 @@
         "serverFiles": ["api/**"]
       }
     }
-  ],
-  "build": {
-    "env": {
-      "NUXT_ENV_PEXELS_API": true
-    }
-  }
+  ]
 }
