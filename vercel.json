@@ -2,12 +2,12 @@
   "version": 2,
   "routes": [
     {
-      "src": "/api/photos/:id",
-      "dest": "/api/photos.js"
+      "src": "/api/photos/(?<id>[^/]+)",
+      "dest": "/api/photos/[id].ts?id=$id"
     },
     {
       "src": "/api/curated",
-      "dest": "/api/curated.js"
+      "dest": "/api/curated.ts"
     }
   ],
   "builds": [

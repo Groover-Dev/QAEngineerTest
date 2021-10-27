@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import axios from "axios";
 
-import app from "./index";
+import app from "../index";
 
 const baseUrl = "https://api.pexels.com/v1/";
 
