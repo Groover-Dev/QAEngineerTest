@@ -1,17 +1,6 @@
 <template>
   <div
-    class="
-      attribution
-      fixed
-      z-10
-      bottom-0
-      right-0
-      backdrop-blur-sm
-      w-full
-      py-3
-      px-5
-      text-right
-    "
+    class="attribution fixed z-10 bottom-0 right-0 w-full py-3 px-5 text-right"
   >
     <a
       class="hover:underline"

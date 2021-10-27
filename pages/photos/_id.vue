@@ -1,5 +1,5 @@
 <template>
-  <article class="max-w-screen-xl mx-auto">
+  <article class="max-w-screen-xl mx-auto py-4">
     <div
       v-if="photo && !$fetchState.pending"
       class="sm:grid sm:grid-cols-2 sm:gap-x-6"
@@ -15,8 +15,8 @@
         "
         :class="{ 'fade-in': photoLoaded }"
         :src="photo.src.large"
-        alt=""
         @load="setLoaded"
+        alt=""
       />
       <div class="mt-4 sm:mt-0 px-4 sm:pl-0">
         <h1 class="capitalize text-2xl font-bold">

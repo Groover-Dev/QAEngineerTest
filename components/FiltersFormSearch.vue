@@ -1,12 +1,9 @@
 <template>
   <div class="search-container w-full">
-    <label
-      for="search-input"
-      class="text-lg sm:border-b border-gray-300 pb-1 w-full sm:block"
-    >
+    <FiltersFormLabel htmlFor="search-input">
       Search by photographer
-    </label>
-    <div class="relative mt-4">
+    </FiltersFormLabel>
+    <div class="relative mt-2 sm:mt-4">
       <input
         class="
           border border-gray-400

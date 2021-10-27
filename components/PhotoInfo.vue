@@ -3,9 +3,9 @@
     <h2 class="text-gray-600 text-xs uppercase">Photo Info</h2>
     <ul class="grid gap-y-4 mt-4">
       <li class="flex items-center">
-        <span class="text-gray-600 text-sm photo-info__text-label"
-          >Photographer</span
-        >
+        <span class="text-gray-600 text-sm photo-info__text-label">
+          Photographer
+        </span>
         <a
           class="font-bold hover:underline"
           :href="photo.photographer_url"
@@ -16,17 +16,17 @@
         </a>
       </li>
       <li class="flex items-center">
-        <span class="text-gray-600 text-sm photo-info__text-label"
-          >Resolution</span
-        >
+        <span class="text-gray-600 text-sm photo-info__text-label">
+          Resolution
+        </span>
         <span class="font-bold" data-test="photo-resolution">
           {{ photo.width }}px x {{ photo.height }}px
         </span>
       </li>
       <li class="flex items-center">
-        <span class="text-gray-600 text-sm photo-info__text-label"
-          >Average Color</span
-        >
+        <span class="text-gray-600 text-sm photo-info__text-label">
+          Average Color
+        </span>
         <div
           class="photo-info__color-swatch rounded-full h-full"
           :style="avgColorStyle"

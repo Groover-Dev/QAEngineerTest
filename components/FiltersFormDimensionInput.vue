@@ -1,6 +1,14 @@
 <template>
   <div
-    class="flex items-center bg-gray-100 border border-gray-400 rounded pl-4"
+    class="
+      flex
+      items-center
+      w-full
+      bg-gray-100
+      border border-gray-400
+      rounded
+      pl-4
+    "
   >
     <label class="dimension-input__label mr-2" :for="id">{{ label }}</label>
     <input

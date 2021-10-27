@@ -1,18 +1,13 @@
 <template>
   <div>
-    <label
-      for="color"
-      class="text-lg sm:border-b border-gray-300 sm:pb-1 w-full sm:block"
-    >
-      Filter by color:
-    </label>
+    <FiltersFormLabel htmlFor="color"> Filter by color: </FiltersFormLabel>
     <div
       class="
         color-picker__input-container
         relative
         overflow-hidden
         rounded-full
-        mt-3
+        mt-1
         sm:mt-4
       "
     >
