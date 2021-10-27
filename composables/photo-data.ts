@@ -2,7 +2,6 @@ import { ref } from "@nuxtjs/composition-api";
 
 import { PexelsPhotoCollectionType } from "~/types/PexelsPhotoCollectionType";
 import { PhotoResourceType } from "~/types/PhotoResourceType";
-import { State } from "~/store";
 import { useColorConverter } from "./color-converter";
 
 async function fetchPhotosData(
@@ -57,35 +56,6 @@ export async function useGetPhotoById(hostUrl: string, id: string) {
 
   return {
     photo
-  };
-}
-
-/**
- * Fetches photo data from the 'search' api if a search string is provided,
- * otherwise it gets data from the 'curated' api
- * @param {string} hostUrl
- * @param {string} search
- * @returns {Promise}
- */
-export async function usePhotoDataSearch(
-  hostUrl: string,
-  search: string,
-  color?: string
-) {
-  if (!search || !color) return useFetchCuratedPhotos(hostUrl);
-
-  const photoData = ref<PexelsPhotoCollectionType | null>(null);
-  const photos = ref<PhotoResourceType[] | null>(null);
-
-  let url = `api/photos?query=${search}`;
-  url = color ? `${url}&color=${color}` : url;
-
-  photoData.value = await fetchPhotosData(url);
-  photos.value = photoData.value.photos;
-
-  return {
-    photoData,
-    photos
   };
 }
 

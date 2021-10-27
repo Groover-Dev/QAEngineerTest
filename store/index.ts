@@ -5,7 +5,6 @@ import {
 
 import {
   useFetchCuratedPhotos,
-  usePhotoDataSearch,
   useFilterPhotos
 } from "~/composables/photo-data";
 import { useGetNextPageFromUrl } from "~/composables/get-next-page-from-url";
@@ -99,19 +98,6 @@ export const actions = {
       commit("setPhotoCollectionData", photoData.value);
       dispatch("filterPhotos", state.filters);
     }
-  },
-  async searchPhotosApi(
-    { commit, state }: { commit: any; state: State },
-    { search, color }: { search: string; color?: string }
-  ) {
-    const { photoData, photos } = await usePhotoDataSearch(
-      state.hostUrl,
-      search,
-      color
-    );
-    commit("setPhotos", photos.value);
-    commit("setFilteredPhotos", photos.value);
-    commit("setPhotoCollectionData", photoData.value);
   },
   filterPhotos(
     { commit, state }: { commit: any; state: State },
