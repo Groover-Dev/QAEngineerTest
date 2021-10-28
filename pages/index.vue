@@ -1,5 +1,6 @@
 <template>
-  <div class="max-w-screen-xl mx-auto grid gap-y-12">
+  <div class="grid gap-y-12">
+    <h1 class="sr-only">Photo View</h1>
     <FiltersForm
       :mobileFiltersOpen="mobileFiltersOpen"
       @toggleMobileFiltersOpen="toggleMobileFiltersOpen"

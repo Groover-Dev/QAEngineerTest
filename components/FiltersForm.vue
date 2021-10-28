@@ -14,7 +14,17 @@
     role="search"
     @submit.prevent="performSearch"
   >
-    <div class="grid md:grid-cols-4 gap-4 sm:gap-6 items-end">
+    <div
+      class="
+        max-w-screen-xl
+        mx-auto
+        grid
+        md:grid-cols-4
+        gap-4
+        sm:gap-6
+        items-end
+      "
+    >
       <div class="flex items-end">
         <FiltersFormSearch
           :searchText="searchText"

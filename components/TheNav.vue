@@ -1,5 +1,5 @@
 <template>
-  <nav class="max-w-screen-xl mx-auto px-4">
+  <nav class="max-w-screen-xl mx-auto">
     <NuxtLink to="/" class="text-4xl">Photo View</NuxtLink>
   </nav>
 </template>

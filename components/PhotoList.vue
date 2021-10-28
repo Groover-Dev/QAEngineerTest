@@ -1,6 +1,6 @@
 <template>
   <div class="photo-list-container px-4">
-    <div v-if="photos && photos.length">
+    <div class="max-w-screen-xl mx-auto" v-if="photos && photos.length">
       <ul
         class="
           mt-8
