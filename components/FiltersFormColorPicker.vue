@@ -4,12 +4,20 @@
     <div
       class="color-picker__input-container relative overflow-hidden rounded-full mt-1 sm:mt-4"
     >
+      <img
+        v-if="colorHex === null"
+        src="checkered.png"
+        class="h-full w-full absolute object-none cursor-pointer"
+        alt=""
+        loading="lazy"
+      />
       <input
         class="color-picker__input cursor-pointer absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+        :class="{ 'opacity-0': colorHex === null }"
         type="color"
         id="color"
         name="color"
-        :value="colorHex"
+        :value="colorCopy"
         @input="onColorChange"
       />
     </div>
@@ -17,17 +25,33 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
+import { defineComponent, ref, computed } from "@nuxtjs/composition-api";
+
+import type { PropOptions } from "@nuxtjs/composition-api";
+
+const defaultColor = "#FFFFFF";
 
 export default defineComponent({
   props: {
     colorHex: {
       type: String,
-      required: true,
-    },
+    } as PropOptions<string | null>,
+  },
+  setup(props) {
+    const colorCopy = ref(defaultColor);
+
+    const inputType = computed(() => {
+      return props.colorHex === null ? "text" : "color";
+    });
+
+    return {
+      colorCopy,
+      inputType,
+    };
   },
   methods: {
     onColorChange(event: Event) {
+      this.colorCopy = (event.target as HTMLInputElement).value;
       this.$emit("update:colorHex", event);
     },
   },
@@ -48,9 +72,5 @@ export default defineComponent({
 .color-picker__input {
   height: 3.5rem;
   width: 3.5rem;
-
-  &::-webkit-color-swatch {
-    background-color: transparent;
-  }
 }
 </style>

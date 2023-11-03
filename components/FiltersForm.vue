@@ -72,8 +72,6 @@
 import { defineComponent, ref } from "@nuxtjs/composition-api";
 import debounce from "lodash/debounce";
 
-const defaultColor = "#00B3B3";
-
 export default defineComponent({
   props: {
     mobileFiltersOpen: {
@@ -84,7 +82,7 @@ export default defineComponent({
   setup() {
     return {
       searchText: ref(""),
-      colorHex: ref(defaultColor),
+      colorHex: ref<string | null>(null),
       maxWidth: ref(""),
       maxHeight: ref(""),
       sort: ref<"newest" | "a-z">("newest"),
@@ -96,7 +94,7 @@ export default defineComponent({
         nameSearch: this.searchText,
         maxWidth: this.maxWidth,
         maxHeight: this.maxHeight,
-        colorHex: this.colorHex !== defaultColor ? this.colorHex : undefined,
+        colorHex: this.colorHex !== null ? this.colorHex : undefined,
         sort: this.sort,
       });
     }, 350),
@@ -124,7 +122,7 @@ export default defineComponent({
       this.searchText = "";
       this.maxWidth = "";
       this.maxHeight = "";
-      this.colorHex = defaultColor;
+      this.colorHex = null;
       this.sort = "newest";
       this.$emit("toggleMobileFiltersOpen");
       this.performSearch();
