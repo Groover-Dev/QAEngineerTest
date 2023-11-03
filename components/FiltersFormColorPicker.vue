@@ -19,6 +19,7 @@
         name="color"
         :value="colorCopy"
         @input="onColorChange"
+        data-test="color-input"
       />
     </div>
   </div>

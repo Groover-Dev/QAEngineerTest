@@ -63,7 +63,9 @@
       />
     </div>
     <div class="text-center mt-4 hidden md:block">
-      <BaseButton @button-click="clearFilters"> Clear Filters </BaseButton>
+      <BaseButton @button-click="clearFilters" data-test="clear-filters-button">
+        Clear Filters
+      </BaseButton>
     </div>
   </form>
 </template>

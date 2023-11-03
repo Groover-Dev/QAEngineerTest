@@ -4,6 +4,7 @@
       :to="`/photos/${photo.id}`"
       class="h-full w-full absolute overflow-hidden"
       no-prefetch
+      data-test="photo-details-link"
     >
       <img
         class="photo-card__img absolute object-cover h-full w-full opacity-0 transform motion-safe:transition motion-safe:transition-transform ease-in-out duration-1000 hover:scale-105"

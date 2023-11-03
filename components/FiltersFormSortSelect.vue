@@ -7,6 +7,7 @@
       id="sort"
       :value="sort"
       @change="onSelectChange"
+      data-test="sort-dropdown"
     >
       <option value="newest">Newest</option>
       <option value="a-z">Photographer (a - z)</option>

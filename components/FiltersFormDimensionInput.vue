@@ -13,6 +13,7 @@
       :value="dimension"
       @input="onInputChange"
       min="1"
+      data-test="dimension-input"
     />
   </div>
 </template>

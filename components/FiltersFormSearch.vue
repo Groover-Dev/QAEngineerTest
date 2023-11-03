@@ -12,12 +12,14 @@
         :value="searchText"
         @input="onInputChange"
         required
+        data-test="search-input"
       />
       <button
         title="search"
         id="search-button"
         type="submit"
         class="absolute top-0 right-0 h-full px-3"
+        data-test="search-input-button"
       >
         <svg
           role="img"

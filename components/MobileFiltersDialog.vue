@@ -2,6 +2,7 @@
   <div
     role="dialog"
     class="mobile-filters__container md:hidden absolute left-1/2 transform -translate-x-1/2 fade-in opacity-0"
+    data-test="filters-dialog"
   >
     <span class="mobile-filters__arrow"></span>
     <div
@@ -60,7 +61,10 @@
         />
       </div>
       <div class="text-center mt-6 md:hidden">
-        <BaseButton @button-click="$emit('clearFilters', $event)">
+        <BaseButton
+          @button-click="$emit('clearFilters', $event)"
+          data-test="clear-filters-dialog-button"
+        >
           Clear Filters
         </BaseButton>
       </div>

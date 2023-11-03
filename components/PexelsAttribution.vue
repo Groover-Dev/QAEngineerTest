@@ -6,6 +6,7 @@
       class="hover:underline"
       rel="external noreferrer"
       href="https://www.pexels.com"
+      data-test="pexels-attribution-link"
     >
       Photos provided by <span class="font-bold">Pexels</span>
     </a>

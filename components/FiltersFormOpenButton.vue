@@ -1,18 +1,11 @@
 <template>
   <button
-    class="
-      filters-form__toggle-btn
-      ml-4
-      px-2
-      rounded
-      border border-gray-400
-      bg-gray-100
-      md:hidden
-    "
+    class="filters-form__toggle-btn ml-4 px-2 rounded border border-gray-400 bg-gray-100 md:hidden"
     :class="{ 'bg-gray-400': isOpen }"
     :title="`${isOpen ? 'Close' : 'Open'} filters`"
     @click="$emit('toggle')"
     type="button"
+    data-test="filters-form-open-button"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"

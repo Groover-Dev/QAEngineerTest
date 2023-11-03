@@ -10,10 +10,18 @@
         </li>
       </ul>
       <div class="text-center mt-6">
-        <BaseButton @button-click="loadMorePhotos" v-if="!loadingMore">
+        <BaseButton
+          @button-click="loadMorePhotos"
+          v-if="!loadingMore"
+          data-test="load-more-button"
+        >
           Load more
         </BaseButton>
-        <StateMessage class="mx-auto flex justify-center" v-else>
+        <StateMessage
+          class="mx-auto flex justify-center"
+          v-else
+          data-test="loading-spinner"
+        >
           <svg
             class="motion-safe:animate-spin motion-reduce:animate-pulse h-8 w-8 text-gray-600"
             xmlns="http://www.w3.org/2000/svg"
@@ -37,11 +45,16 @@
         </StateMessage>
       </div>
     </div>
-    <StateMessage v-else-if="$fetchState.pending">Loading...</StateMessage>
-    <StateMessage v-else-if="$fetchState.error">
+    <StateMessage v-else-if="$fetchState.pending" data-test="loading-list"
+      >Loading...</StateMessage
+    >
+    <StateMessage v-else-if="$fetchState.error" data-test="error-list">
       Oh no! An error occurred
     </StateMessage>
-    <StateMessage v-else-if="!$fetchState.pending && !$fetchState.error">
+    <StateMessage
+      v-else-if="!$fetchState.pending && !$fetchState.error"
+      data-test="empty-list"
+    >
       {{ emptyMessage }}
     </StateMessage>
   </div>

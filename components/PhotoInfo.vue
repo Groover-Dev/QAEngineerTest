@@ -39,6 +39,7 @@
         :href="photo.url"
         class="font-bold hover:underline"
         rel="external noreferrer"
+        data-test="photo-pexels-link"
       >
         View it on Pexels
       </a>
