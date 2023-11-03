@@ -2,21 +2,7 @@
   <div>
     <FiltersFormLabel htmlFor="sort">Sort by</FiltersFormLabel>
     <select
-      class="
-        sort-select__select
-        mt-2
-        sm:mt-4
-        border border-gray-400
-        bg-gray-100
-        rounded
-        w-full
-        py-2
-        pl-4
-        pr-10
-        text-lg
-        placeholder-gray-500
-        font-medium
-      "
+      class="sort-select__select mt-2 sm:mt-4 border border-gray-400 bg-gray-100 rounded w-full py-2 pl-4 pr-10 text-lg placeholder-gray-500 font-medium"
       name="sort"
       id="sort"
       :value="sort"
@@ -31,16 +17,20 @@
 <script lang="ts">
 import { defineComponent } from "@nuxtjs/composition-api";
 
+import type { PropOptions } from "@nuxtjs/composition-api";
+
 export default defineComponent({
   props: {
     sort: {
       type: String,
       required: true,
-    },
+    } as PropOptions<"newest" | "a-z">,
   },
   methods: {
-    onSelectChange(event: InputEvent) {
-      this.$emit("update:sort", event);
+    onSelectChange(event: Event) {
+      this.$emit("update:sort", {
+        newSort: (event.target as HTMLSelectElement).value,
+      });
     },
   },
 });

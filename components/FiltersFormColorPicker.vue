@@ -1,26 +1,11 @@
 <template>
   <div>
-    <FiltersFormLabel htmlFor="color"> Filter color </FiltersFormLabel>
+    <FiltersFormLabel htmlFor="color"> Filter by color </FiltersFormLabel>
     <div
-      class="
-        color-picker__input-container
-        relative
-        overflow-hidden
-        rounded-full
-        mt-1
-        sm:mt-4
-      "
+      class="color-picker__input-container relative overflow-hidden rounded-full mt-1 sm:mt-4"
     >
       <input
-        class="
-          color-picker__input
-          cursor-pointer
-          absolute
-          top-1/2
-          left-1/2
-          transform
-          -translate-x-1/2 -translate-y-1/2
-        "
+        class="color-picker__input cursor-pointer absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
         type="color"
         id="color"
         name="color"
@@ -42,7 +27,7 @@ export default defineComponent({
     },
   },
   methods: {
-    onColorChange(event: InputEvent) {
+    onColorChange(event: Event) {
       this.$emit("update:colorHex", event);
     },
   },
@@ -63,5 +48,9 @@ export default defineComponent({
 .color-picker__input {
   height: 3.5rem;
   width: 3.5rem;
+
+  &::-webkit-color-swatch {
+    background-color: transparent;
+  }
 }
 </style>

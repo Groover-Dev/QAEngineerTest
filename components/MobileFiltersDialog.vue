@@ -1,29 +1,11 @@
 <template>
   <div
     role="dialog"
-    class="
-      mobile-filters__container
-      md:hidden
-      absolute
-      left-1/2
-      transform
-      -translate-x-1/2
-      fade-in
-      opacity-0
-    "
+    class="mobile-filters__container md:hidden absolute left-1/2 transform -translate-x-1/2 fade-in opacity-0"
   >
     <span class="mobile-filters__arrow"></span>
     <div
-      class="
-        mobile-filters__inner-container
-        shadow-xl
-        bg-white
-        border border-gray-300
-        p-4
-        sm:py-6
-        rounded
-        z-50
-      "
+      class="mobile-filters__inner-container shadow-xl bg-white border border-gray-300 p-4 sm:py-6 rounded z-50"
     >
       <button
         type="button"
@@ -54,7 +36,7 @@
         />
         <div class="filter-forms__dimension-inputs-container">
           <FiltersFormLabel>
-            Filter size <span class="text-sm">(up to px)</span>
+            Filter by size <span class="text-sm">(up to px)</span>
           </FiltersFormLabel>
           <div class="mt-2 sm:mt-4 flex">
             <FiltersFormDimensionInput

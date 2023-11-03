@@ -1,29 +1,11 @@
 <template>
   <form
-    class="
-      filters-form__container
-      px-4
-      pb-4
-      pt-2
-      border-b
-      sticky
-      top-0
-      z-50
-      bg-white
-    "
+    class="filters-form__container px-4 pb-4 pt-2 border-b sticky top-0 z-50 bg-white"
     role="search"
     @submit.prevent="performSearch"
   >
     <div
-      class="
-        max-w-screen-xl
-        mx-auto
-        grid
-        md:grid-cols-4
-        gap-4
-        sm:gap-6
-        items-end
-      "
+      class="max-w-screen-xl mx-auto grid md:grid-cols-4 gap-4 sm:gap-6 items-end"
     >
       <div class="flex items-end">
         <FiltersFormSearch
@@ -56,7 +38,7 @@
       />
       <div class="filter-forms__dimension-inputs-container hidden md:block">
         <FiltersFormLabel>
-          Filter size <span class="text-sm">(up to px)</span>
+          Filter by size <span class="text-sm">(up to px)</span>
         </FiltersFormLabel>
         <div class="mt-2 sm:mt-4 flex">
           <FiltersFormDimensionInput
@@ -87,7 +69,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
+import { defineComponent, ref } from "@nuxtjs/composition-api";
 import debounce from "lodash/debounce";
 
 const defaultColor = "#00B3B3";
@@ -101,11 +83,11 @@ export default defineComponent({
   },
   setup() {
     return {
-      searchText: "",
-      colorHex: defaultColor,
-      maxWidth: "",
-      maxHeight: "",
-      sort: "newest",
+      searchText: ref(""),
+      colorHex: ref(defaultColor),
+      maxWidth: ref(""),
+      maxHeight: ref(""),
+      sort: ref<"newest" | "a-z">("newest"),
     };
   },
   methods: {
@@ -118,24 +100,24 @@ export default defineComponent({
         sort: this.sort,
       });
     }, 350),
-    updateSearchText(event: InputEvent) {
+    updateSearchText(event: Event) {
       this.searchText = (event.target as HTMLInputElement).value;
       this.performSearch();
     },
-    updateColorHex(event: InputEvent) {
+    updateColorHex(event: Event) {
       this.colorHex = (event.target as HTMLInputElement).value;
       this.performSearch();
     },
-    updateMaxWidth(event: InputEvent) {
+    updateMaxWidth(event: Event) {
       this.maxWidth = (event.target as HTMLInputElement).value;
       this.performSearch();
     },
-    updateMaxHeight(event: InputEvent) {
+    updateMaxHeight(event: Event) {
       this.maxHeight = (event.target as HTMLInputElement).value;
       this.performSearch();
     },
-    updateSort(event: InputEvent) {
-      this.sort = (event.target as HTMLSelectElement).value;
+    updateSort({ newSort }: { newSort: "newest" | "a-z" }) {
+      this.sort = newSort; //(event.target as HTMLSelectElement).value;
       this.performSearch();
     },
     clearFilters() {

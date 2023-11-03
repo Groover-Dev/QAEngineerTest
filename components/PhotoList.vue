@@ -2,15 +2,7 @@
   <div class="photo-list-container px-4">
     <div class="max-w-screen-xl mx-auto" v-if="photos && photos.length">
       <ul
-        class="
-          mt-8
-          grid
-          sm:grid-cols-2
-          lg:grid-cols-3
-          gap-y-10
-          sm:gap-y-5
-          gap-x-5
-        "
+        class="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-y-10 sm:gap-y-5 gap-x-5"
         data-test="photo-list"
       >
         <li v-for="photo in photos" :key="photo.id" data-test="photo-list-item">
@@ -23,13 +15,7 @@
         </BaseButton>
         <StateMessage class="mx-auto flex justify-center" v-else>
           <svg
-            class="
-              motion-safe:animate-spin
-              motion-reduce:animate-pulse
-              h-8
-              w-8
-              text-gray-600
-            "
+            class="motion-safe:animate-spin motion-reduce:animate-pulse h-8 w-8 text-gray-600"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -62,7 +48,13 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useFetch } from "@nuxtjs/composition-api";
+import {
+  computed,
+  ref,
+  defineComponent,
+  useFetch,
+} from "@nuxtjs/composition-api";
+
 import { useStore } from "~/store";
 
 export default defineComponent({
@@ -81,13 +73,15 @@ export default defineComponent({
           ? "No photos match your search criteria"
           : "We couldn't find any photos"
       ),
-      loadingMore: false,
-      async loadMorePhotos(this: any) {
-        this.loadingMore = true;
-        await store.dispatch("fetchMorePhotos");
-        this.loadingMore = false;
-      },
+      loadingMore: ref(false),
     };
+  },
+  methods: {
+    async loadMorePhotos() {
+      this.loadingMore = true;
+      await this.$store.dispatch("fetchMorePhotos");
+      this.loadingMore = false;
+    },
   },
 });
 </script>

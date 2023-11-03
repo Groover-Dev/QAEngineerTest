@@ -1,19 +1,6 @@
 <template>
   <button
-    class="
-      border border-gray-500
-      rounded
-      px-4
-      py-2
-      pb-3
-      whitespace-nowrap
-      text-lg
-      font-medium
-      motion-safe:transition-colors
-      duration-300
-      ease-in-out
-      hover:text-white hover:bg-gray-800
-    "
+    class="border border-gray-500 rounded px-4 py-2 pb-3 whitespace-nowrap text-lg font-medium motion-safe:transition-colors duration-300 ease-in-out hover:text-white hover:bg-gray-800"
     :type="buttonType || 'button'"
     @click="$emit('button-click')"
   >
@@ -24,12 +11,14 @@
 <script lang="ts">
 import { defineComponent } from "@nuxtjs/composition-api";
 
+import type { PropOptions } from "@nuxtjs/composition-api";
+
 export default defineComponent({
   emits: ["button-click"],
   props: {
     buttonType: {
       type: String,
-    },
+    } as PropOptions<"button" | "submit" | "reset" | undefined>,
   },
 });
 </script>

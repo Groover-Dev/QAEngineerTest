@@ -5,14 +5,7 @@
       class="sm:grid sm:grid-cols-2 sm:gap-x-6"
     >
       <img
-        class="
-          photo-details__image
-          w-full
-          object-cover
-          sm:pl-4
-          md:object-contain
-          opacity-0
-        "
+        class="photo-details__image w-full object-cover sm:pl-4 md:object-contain opacity-0"
         :class="{ 'fade-in': photoLoaded }"
         :src="photo.src.large"
         @load="setLoaded"
@@ -51,11 +44,6 @@ import capitalize from "lodash/capitalize";
 
 export default defineComponent({
   layout: "default",
-  head() {
-    return {
-      title: `Photo View | ${capitalize(this.description as string)}`,
-    };
-  },
   setup() {
     const route = useRoute();
     const store = useStore<State>();
@@ -70,11 +58,20 @@ export default defineComponent({
       photo.value = photoData.value;
     });
 
+    const description = computed<string>(
+      () => usePhotoUrlToText(photo.value?.url) || ""
+    );
+
     return {
       id,
       photo,
-      photoLoaded: false,
-      description: computed(() => usePhotoUrlToText(photo.value?.url)),
+      description,
+      photoLoaded: ref(false),
+    };
+  },
+  head() {
+    return {
+      title: `Photo View | ${capitalize(this.description || "")}`,
     };
   },
   methods: {

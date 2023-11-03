@@ -6,19 +6,7 @@
       no-prefetch
     >
       <img
-        class="
-          photo-card__img
-          absolute
-          object-cover
-          h-full
-          w-full
-          opacity-0
-          transform
-          motion-safe:transition motion-safe:transition-transform
-          ease-in-out
-          duration-1000
-          hover:scale-105
-        "
+        class="photo-card__img absolute object-cover h-full w-full opacity-0 transform motion-safe:transition motion-safe:transition-transform ease-in-out duration-1000 hover:scale-105"
         :class="{ 'fade-in': photoLoaded }"
         :src="photo.src.large"
         :alt="description"
@@ -28,18 +16,7 @@
       />
     </NuxtLink>
     <figcaption
-      class="
-        absolute
-        z-10
-        bottom-0
-        px-3
-        py-2
-        text-white
-        bg-opacity-15 bg-black
-        w-full
-        flex
-        justify-between
-      "
+      class="absolute z-10 bottom-0 px-3 py-2 text-white bg-opacity-15 bg-black w-full flex justify-between"
     >
       <span data-test="photo-size">
         Image size: {{ photo.width }} x {{ photo.height }}
@@ -59,8 +36,9 @@
   </figure>
 </template>
 
-<script lang='ts'>
-import { computed, defineComponent } from "@nuxtjs/composition-api";
+<script lang="ts">
+import { computed, ref, defineComponent } from "@nuxtjs/composition-api";
+
 import { usePhotoUrlToText } from "~/composables/photo-url-to-text";
 
 export default defineComponent({
@@ -73,7 +51,7 @@ export default defineComponent({
   setup(props) {
     return {
       description: computed(() => usePhotoUrlToText(props.photo.url)),
-      photoLoaded: false,
+      photoLoaded: ref(false),
     };
   },
   methods: {

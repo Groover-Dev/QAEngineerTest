@@ -5,18 +5,7 @@
     </FiltersFormLabel>
     <div class="relative mt-2 sm:mt-4">
       <input
-        class="
-          border border-gray-400
-          bg-gray-100
-          rounded
-          w-full
-          py-2
-          pl-4
-          pr-10
-          text-lg
-          placeholder-gray-500
-          font-medium
-        "
+        class="border border-gray-400 bg-gray-100 rounded w-full py-2 pl-4 pr-10 text-lg placeholder-gray-500 font-medium"
         id="search-input"
         type="search"
         name="search"
@@ -59,7 +48,7 @@ export default defineComponent({
     },
   },
   methods: {
-    onInputChange(event: InputEvent) {
+    onInputChange(event: Event) {
       this.$emit("update:searchText", event);
     },
   },

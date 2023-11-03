@@ -15,13 +15,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
+import { defineComponent, ref } from "@nuxtjs/composition-api";
 
 export default defineComponent({
   layout: "default",
   setup() {
     return {
-      mobileFiltersOpen: false,
+      mobileFiltersOpen: ref(false),
     };
   },
   methods: {
