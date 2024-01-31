@@ -50,5 +50,9 @@ export default {
   serverMiddleware:
     process.env.NODE_ENV === "production"
       ? []
-      : ["~/api/photos/[id].js", "~/api/curated.js"]
+      : ["~/api/photos/[id].js", "~/api/curated.js"],
+
+  server: {
+    port: process.env.NUXT_ENV_PORT,
+  },
 };
