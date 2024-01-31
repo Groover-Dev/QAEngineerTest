@@ -11,7 +11,7 @@
     "test:cypress": "cypress open"
   },
   "dependencies": {
-    "axios": "^0.23.0",
+    "axios": "^1.6.7",
     "core-js": "^3.33.2",
     "express": "^4.18.2",
     "lodash": "^4.17.21",
