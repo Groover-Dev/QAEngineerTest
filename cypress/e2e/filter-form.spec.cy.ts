@@ -1,6 +1,6 @@
 describe("Filter Form", () => {
   it("Tests the search input", () => {
-    cy.visit("http://localhost:3000/");
+    cy.visit(Cypress.env("baseUrl"));
 
     cy.getByDataTest("nav-logo-link");
 
