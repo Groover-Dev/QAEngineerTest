@@ -1,18 +1,20 @@
-# "Photo View" NuxtJS App
+# Originally forked from "Photo View" NuxtJS App
 
-### Built with
+## Use as the Peer Prog QA Exercise
 
-- [Vue.js](https://vuejs.org/) - JS library
-- [Nuxt.js](https://nuxtjs.org/) - Nuxt framework
-- [TypeScript](https://www.typescriptlang.org/) - Static type definitions
-- [Vuex](https://vuex.vuejs.org) - For state management
-- [TailwindCSS](https://tailwindcss.com/) - For styles
-- [Pexels API](https://www.pexels.com/api/) - For photos
-- [Axios](https://axios-http.com/) - For middleware fetch calls
-- [Vue Test Utils](https://vue-test-utils.vuejs.org) - For unit testing
-- [Nuxtjs Composition API](https://composition-api.nuxtjs.org) - For Vue 3 Composition API in Nuxt
-- [Nuxt Vercel Builder](https://github.com/nuxt/vercel-builder) - For configuring Nuxt to build on Vercel
-- Semantic HTML5 markup
-- Mobile-first workflow
-- Scoped CSS
-- Serverless Functions
+### To Set it Up
+
+1. Clone the repo
+2. Use node 16.20.2 since this is an old project (nvm helps)
+3. Run `npm install`
+4. Create a file at the root of the project called ".env" and paste these values into it:
+
+```
+NUXT_ENV_PORT=5000
+NUXT_ENV_API_URL=http://localhost:5000/photo-resources-mock.json
+```
+
+5. Run `npm run dev` and test the url at "localhost:5000" in your browser
+6. To run cypress tests run `npm run test:cypress`
+
+Have fun!
