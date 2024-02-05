@@ -1,11 +1,11 @@
 import {
   InjectionKey,
-  useStore as baseUseStore
+  useStore as baseUseStore,
 } from "@nuxtjs/composition-api";
 
 import {
   useFetchCuratedPhotos,
-  useFilterPhotos
+  useFilterPhotos,
 } from "~/composables/photo-data";
 import { useGetNextPageFromUrl } from "~/composables/get-next-page-from-url";
 import { CollectionMetaDataType } from "~/types/CollectionMetaDataType";
@@ -27,7 +27,7 @@ const defaultFilters = {
   maxWidth: "",
   maxHeight: "",
   colorHex: "",
-  sort: "newest"
+  sort: "newest",
 };
 
 export const state = () => ({
@@ -35,7 +35,7 @@ export const state = () => ({
   photos: [],
   filteredPhotos: [],
   filters: defaultFilters,
-  hostUrl: ""
+  hostUrl: "",
 });
 
 export const mutations = {
@@ -45,7 +45,7 @@ export const mutations = {
       per_page: photoData.per_page,
       total_results: photoData.total_results,
       next_page: photoData.next_page,
-      prev_page: photoData.prev_page
+      prev_page: photoData.prev_page,
     };
   },
   setPhotos(state: State, photos: PhotoResourceType[]) {
@@ -62,19 +62,19 @@ export const mutations = {
   },
   setHostUrl(state: State, url: string) {
     state.hostUrl = url;
-  }
+  },
 };
 
 export const actions = {
   nuxtServerInit({ commit }: { commit: any }, { req }: { req: any }) {
     const hostUrl =
-      req.headers.host.indexOf("localhost:3000") > -1
+      req.headers.host.indexOf("localhost") > -1
         ? `http://${req.headers.host}`
         : `https://${req.headers.host}`;
     commit("setHostUrl", hostUrl);
   },
   async fetchCuratedPhotos({ commit, state }: { commit: any; state: State }) {
-    await useFetchCuratedPhotos(state.hostUrl).then(data => {
+    await useFetchCuratedPhotos(state.hostUrl).then((data) => {
       const { photoData, photos } = data;
       commit("setPhotos", photos.value);
       commit("setPhotoCollectionData", photoData.value);
@@ -93,7 +93,7 @@ export const actions = {
   async fetchMorePhotos({
     dispatch,
     commit,
-    state
+    state,
   }: {
     dispatch: any;
     commit: any;
@@ -101,7 +101,7 @@ export const actions = {
   }) {
     const nextPage = useGetNextPageFromUrl(state.photoCollectionData.next_page);
     if (nextPage) {
-      await useFetchCuratedPhotos(state.hostUrl, nextPage).then(data => {
+      await useFetchCuratedPhotos(state.hostUrl, nextPage).then((data) => {
         const { photoData, photos } = data;
         commit("addPhotos", photos.value);
         commit("setPhotoCollectionData", photoData.value);
@@ -116,7 +116,7 @@ export const actions = {
       maxWidth,
       maxHeight,
       colorHex,
-      sort
+      sort,
     }: {
       nameSearch?: string;
       maxWidth?: string;
@@ -138,7 +138,7 @@ export const actions = {
   },
   clearFilters({ commit }: { commit: any }) {
     commit("setFilters", defaultFilters);
-  }
+  },
 };
 
 export function useStore() {
